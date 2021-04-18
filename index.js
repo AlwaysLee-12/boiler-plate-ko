@@ -1,15 +1,15 @@
 const express= require('express');
 const app= express();
 const port=5000;
-const bodyParser=require('body-parser');
-const { User }= require('./models/User');
-
+const bodyParser=require('body-parser');  //body-parser 사용
+const { User }= require('./models/User'); //User 모듈을 불러옴
+const config=require('./config/key');
 
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
 const mongoose= require('mongoose');
-mongoose.connect('mongodb+srv://alwayslee:Pringle!135@boilerplate.q0ceq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',{
+mongoose.connect(config.mongoURI,{
     useNewUrlParser:true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false
 }).then(()=>console.log('MongoDB Connected'))
   .catch(err=>console.log(err));
