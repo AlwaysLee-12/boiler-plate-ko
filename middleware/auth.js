@@ -1,5 +1,3 @@
-const {User}=require('./models/User');
-
 const { User } = require("../models/User");
 
 let auth=(req,res)=>{
@@ -13,7 +11,7 @@ let auth=(req,res)=>{
         if(err) throw err;
         //없으면 인증 실패
         if(!user) return res.json({isAuth:false,error:true})
-
+       
         //유저가 있으면 인증 성공
         req.token=token;
         req.user=user;

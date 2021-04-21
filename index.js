@@ -3,16 +3,16 @@ const app= express();
 const port=5000;
 const bodyParser=require('body-parser');  //body-parser 사용
 const { User }= require('./models/User'); //User 모듈을 불러옴
+const mongoose= require('mongoose');
+const { json } = require('body-parser');
 const config=require('./config/key');
 const cookieParser=require('cookie-parser');
-const {auth}= require('./middleware/auth'); //
+const {auth}= require('./middleware/auth'); 
 
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-const mongoose= require('mongoose');
-const { json } = require('body-parser');
 mongoose.connect(config.mongoURI,{
     useNewUrlParser:true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false
 }).then(()=>console.log('MongoDB Connected'))
@@ -68,6 +68,16 @@ app.get('/api/users/auth',auth,(req,res)=>{
     image:req.user.image
   });
 });
+
+//로그아웃 기능 구현
+app.get('/api/users/logout',auth,(req,res)=>{
+  //먼저 인증 과정을 수행하고, 그 후 해당 아이디를 가진 유저의 토큰을 지워준다.
+  User.findOneAndUpdate({_id:req.user._id},{token:""},(err,user)=>{
+    if(err) return res.json({success:false,err});
+    return res.status(200).send({success:true});
+  });
+});
+
 
 app.listen(port,()=>console.log(`Example app listening on port ${port}!`));
 
