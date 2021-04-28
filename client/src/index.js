@@ -3,12 +3,20 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {Provider} from 'react-redux';
 import 'antd/dist/antd.css';
+import { applyMiddleware } from 'redux';
+import promiseMiddleware from 'redux-promise';
+import reduxThunk from 'redux-thunk';
+
+const createStoreWithMiddleware= applyMiddleware(promiseMiddleware,reduxThunk)(createStore);
 
 ReactDOM.render(
-  <React.StrictMode>
+  <Provider
+    store={createStoreWithMiddleware()}
+  >
     <App />
-  </React.StrictMode>,
+  </Provider>,
   document.getElementById('root')
 );
 
