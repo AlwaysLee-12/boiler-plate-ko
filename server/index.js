@@ -8,7 +8,6 @@ const { json } = require('body-parser');
 const config=require('./config/key');
 const cookieParser=require('cookie-parser');
 const {auth}= require('./middleware/auth'); 
-
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 app.use(cookieParser());
