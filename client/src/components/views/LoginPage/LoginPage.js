@@ -26,9 +26,10 @@ function LoginPage(props) {
             password:Password
         }
 
-        //로그인 완료시 시작 화면으로 돌아감
+        //redux action 작업
         dispatch(loginUser(body))
             .then(response=>{
+                //로그인 완료시 시작 화면으로 돌아감
                 if(response.payload.loginSuccess){
                     props.history.push('/');
                 }else{
