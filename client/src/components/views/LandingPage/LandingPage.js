@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
+import {withRouter} from 'react-router-dom'
 
 function LandingPage(props) {
     //서버에 GET 요청을 보내고, 그에 따른 응답을 콘솔 창에 전시
@@ -34,4 +35,4 @@ function LandingPage(props) {
     )
 }
 
-export default LandingPage
+export default withRouter(LandingPage)
